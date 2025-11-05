@@ -17,23 +17,52 @@
     height: 100vh;
   }
 
-  .logo {
-    font-size: 96px;
-    font-weight: 900;
-    letter-spacing: 4px;
-    background: linear-gradient(45deg, #6a00ff, #00d4ff, #ffffff);
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 0px 0px 14px rgba(80, 0, 255, 0.4);
-    animation: shine 4s infinite linear;
-    transform: translateY(-100px);
-  }
+ /* Main logo */
+.logo {
+  font-size: 96px;
+  font-weight: 900;
+  letter-spacing: 4px;
 
-  @keyframes shine {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.6); }
-    100% { filter: brightness(1); }
-  }
+  /* Darker, deeper gradient */
+  background: linear-gradient(45deg, #3a0078, #0062cc, #dce7ff);
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* Softer glow */
+  text-shadow: 0px 0px 10px rgba(60, 0, 180, 0.25);
+
+  /* Star effect (tiny white speckles) */
+  background-size: 300%;
+  position: relative;
+  animation: shine 6s infinite linear, stars 10s infinite linear;
+  transform: translateY(-320px);
+}
+
+/* Brightness animation reduced */
+@keyframes shine {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.25); }
+  100% { filter: brightness(1); }
+}
+
+/* Subtle shifting star sparkle */
+@keyframes stars {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Star pattern overlay */
+.logo::after {
+  content: "GCSG";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, white 1px, transparent 2px) repeat;
+  background-size: 12px 12px;
+  -webkit-background-clip: text;
+  color: transparent;
+  opacity: 0.25; /* Subtle stars */
+  pointer-events: none;
+}
 </style>
 
   </head>
