@@ -1,72 +1,176 @@
 <!doctype html>
 <html>
-  <head>
-    <link rel="icon" type="image/x-icon" href="/solagalaxy_favicon.ico">
-    <meta charset="utf-8">
-    <title>gcsg</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-  body {
-    background-color: #fff7c2;
-    margin: 0;
-    padding: 48px;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
 
- /* Main logo */
-.logo {
-  font-size: 96px;
-  font-weight: 900;
-  letter-spacing: 4px;
+<head>
+  <link rel="icon" type="image/x-icon" href="/solagalaxy_favicon.ico">
+  <meta charset="utf-8">
+  <title>gcsg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background-color: #fff7c2;
+      margin: 0;
+      padding: 48px;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-  /* Darker, deeper gradient */
-  background: linear-gradient(45deg, #3a0078, #0062cc, #dce7ff);
-  -webkit-background-clip: text;
-  color: transparent;
+    .layout {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
 
-  /* Softer glow */
-  text-shadow: 0px 0px 10px rgba(60, 0, 180, 0.25);
+    .message {
+      font-size: 10px;
+      max-width: 200px;
+      font-weight: 600;
+      color: #3a0078;
+      position: absolute;
+      transform: translate(430px, -220px) rotate(-40deg);
+    }
 
-  /* Star effect (tiny white speckles) */
-  background-size: 300%;
-  position: relative;
-  animation: shine 6s infinite linear, stars 10s infinite linear;
-  transform: translateY(-320px);
-}
+    /* New: use the PNG image as the logo */
+    .logo {
+      width: 420px;
+      /* tweak as needed */
+      max-width: 70vw;
+      /* keeps it responsive */
+      height: auto;
+      /* preserve aspect ratio */
+      transform: translateY(-220px);
+      filter: drop-shadow(0 0 10px rgba(60, 0, 180, 0.25));
+    }
 
-/* Brightness animation reduced */
-@keyframes shine {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(1.25); }
-  100% { filter: brightness(1); }
-}
+    /* Optional - keep an accessible heading for SEO and screen readers */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 1px, 1px);
+      white-space: nowrap;
+      border: 0;
+    }
 
-/* Subtle shifting star sparkle */
-@keyframes stars {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
+    .info-box {
+      background-color: white;
+      border: 3px solid #3a0078;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: -200px;
+      width: 70%;
+      max-width: 800px;
+      color: #2a0055;
+      font-size: 16px;
+      line-height: 1.6;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      text-align: left;
+    }
 
-/* Star pattern overlay */
-.logo::after {
-  content: "GCSG";
+    .info-box h2 {
+      text-align: center;
+      margin-top: 0;
+      color: #3a0078;
+    }
+
+    .info-box strong {
+      color: #8500a8;
+    }
+
+    .mypic {
+      position: absolute;
+      /* lets you move it freely */
+      top: 50px;
+      /* adjust vertically */
+      left: 50px;
+      /* adjust horizontally */
+      text-align: center;
+    }
+
+    .mypic img {
+      width: 180px;
+      border-radius: 12px;
+      border: 2px solid #3a0078;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .mypic figcaption {
+      font-size: 12px;
+      font-weight: 600;
+      color: #3a0078;
+      margin-top: 6px;
+    }
+
+    .luna {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, white 1px, transparent 2px) repeat;
-  background-size: 12px 12px;
-  -webkit-background-clip: text;
-  color: transparent;
-  opacity: 0.25; /* Subtle stars */
-  pointer-events: none;
+  top: 400px;        /* 20px below your caption area */
+  left: 50px;        /* same horizontal alignment as yours */
+  text-align: center;
 }
-</style>
 
-  </head>
-  <body>
-    <h1 class="logo">GCSG</h1>
-  </body>
+.luna img {
+  width: 180px;
+  border-radius: 12px;
+  border: 2px solid #3a0078;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.luna figcaption {
+  font-size: 12px;
+  font-weight: 600;
+  color: #3a0078;
+  margin-top: 6px;
+}
+
+  </style>
+</head>
+
+<body>
+  <h1 class="sr-only">GCSG</h1>
+
+  <div class="layout">
+    <div class="message">I'm not very good with logos so if anyone wants to make a new one lmk</div>
+    <!-- Replaced text logo with an image -->
+    <figure class="mypic">
+      <img src="Aenea%20Profile%20Pic.jpg" alt="Aenea Vannoni portrait">
+      <figcaption>Me - Aenea Vannoni</figcaption>
+
+
+    </figure>
+
+    <figure class="luna">
+  <img src="LunaProfilepic.png" alt="Luna portrait">
+  <figcaption>The Queen of the Universe, Luna</figcaption>
+</figure>
+    <img src="SmallerLogo.png" alt="GCSG logo" class="logo" />
+
+  </div>
+
+  <div class="info-box">
+    <p>Hello Gamers, this is the <strong>SUPER SERIOUS official page</strong> of <strong>'THE GRAND CONQUEST OF THE SOLA
+        GALAXY'</strong>, a sci-fi series written by Aenea Vannoni. On this page you will find most of what I've done,
+      from the books themselves (there's only one right now) to worldbuilding, character sheets, maps etc.</p>
+
+    <p>Personally I don't subscribe to this copyright nonsense. Creative works <strong>IN MY OPINION</strong> should be
+      free for interpretation and fair use. Meaning, anyone who wants to plagiarize, warp, distort whatever my work is
+      free to do so. Listen, if Disney or Netflix try and make a show out of this without my input, they'd probably mess
+      it up so badly they'd lose 10x the money they spent on it. If you have any suggestions, comments or edits that
+      would be great to let me know on YouTube, Discord or email.</p>
+
+    <h2>DISCLAIMER!!!</h2>
+
+    <p>I USE AI. Not all that much, but I still do. Primarily for art. WHY? Because I am perhaps the worst artist to
+      grace the land since a certain vegetarian. Despite this I still want to at least TRY and see visual
+      representations of my work so I use AI. IF ANYONE WANTS to make art for my story, as some people have (Thanks cuz)
+      that would be AMAZING and hella cool. I have no money to pay you though, so it would just be for fun.</p>
+  </div>
+</body>
+
 </html>
