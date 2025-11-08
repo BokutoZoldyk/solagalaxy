@@ -1,52 +1,36 @@
 <!doctype html>
 <html>
-
 <head>
   <link rel="icon" type="image/x-icon" href="/solagalaxy_favicon.ico">
   <meta charset="utf-8">
   <title>gcsg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --stage-max: 1200px;   /* max width of the whole composition */
+    }
+
     body {
       background-color: #fff7c2;
       margin: 0;
       padding: 48px;
       font-family: Arial, sans-serif;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
     }
 
-    .layout {
-      display: flex;
-      align-items: center;
-      gap: 50px;
+    /* One fixed-ratio canvas that everything anchors to */
+    .stage {
+      position: relative;
+      width: min(92vw, var(--stage-max));
+      aspect-ratio: 16 / 11;         /* tweak if you want more vertical room */
+      /* optional subtle outline to visualize the stage while tuning:
+      outline: 1px dashed rgba(58,0,120,0.25); */
     }
 
-    .message {
-      font-size: 10px;
-      max-width: 200px;
-      font-weight: 600;
-      color: #3a0078;
-      position: absolute;
-      transform: translate(430px, -220px) rotate(-40deg);
-    }
-
-    /* New: use the PNG image as the logo */
-    .logo {
-      width: 420px;
-      /* tweak as needed */
-      max-width: 70vw;
-      /* keeps it responsive */
-      height: auto;
-      /* preserve aspect ratio */
-      transform: translateY(-220px);
-      filter: drop-shadow(0 0 10px rgba(60, 0, 180, 0.25));
-    }
-
-    /* Optional - keep an accessible heading for SEO and screen readers */
+    /* Keep for SEO and screen readers */
     .sr-only {
       position: absolute;
       width: 1px;
@@ -59,118 +43,205 @@
       border: 0;
     }
 
-    .info-box {
-      background-color: white;
-      border: 3px solid #3a0078;
-      border-radius: 12px;
-      padding: 24px;
-      margin-top: -200px;
-      width: 70%;
-      max-width: 800px;
-      color: #2a0055;
-      font-size: 16px;
-      line-height: 1.6;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-      text-align: left;
+    /* Slanted helper text */
+    .message {
+  position: absolute;
+  top: 4%;
+  left: 70%;
+  width: 200px;       /* fixed width in px so it doesn’t scale */
+  font-size: 12px;    /* fixed font size */
+  font-weight: 600;
+  color: #3a0078;
+  transform: rotate(-40deg);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+
+    /* Main logo image centered toward the top */
+    /* Main logo image centered toward the top */
+.logo {
+  position: absolute;
+  top: 2%;                /* was -3%, moved down a bit to avoid overlap */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;             /* slightly smaller to keep spacing when zoomed out */
+  max-width: 70vw;        /* safety cap */
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(60, 0, 180, 0.25));
+}
+
+
+    /* Left column figure 1 */
+    .mypic {
+      position: absolute;
+      top: 0%;
+      left: -20%;
+      width: 18%;
+      text-align: center;
     }
+
+    .mypic img {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid #3a0078;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      height: auto;
+    }
+
+   .mypic figcaption {
+  font-size: 15px;   /* fixed size, doesn’t scale on zoom */
+  font-weight: 600;
+  color: #3a0078;
+  margin-top: 6px;
+}
+
+
+    /* Left column figure 2 */
+    .luna {
+      position: absolute;
+      top: 45%;
+      left: -20%;
+      width: 18%;
+      text-align: center;
+    }
+
+    .luna img {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid #3a0078;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      height: auto;
+    }
+
+    .luna figcaption {
+      font-size: 15px;
+      font-weight: 600;
+      color: #3a0078;
+      margin-top: 6px;
+    }
+
+    /* Info box pinned near bottom center of the stage */
+    /* Info box pinned near bottom center of the stage */
+.info-box {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  width: 66%;
+  max-width: 1100px;
+  height: 60%;            /* fixed height instead of max-height */
+  background-color: white;
+  border: 3px solid #3a0078;
+  border-radius: 12px;
+  padding: 1.2vw;
+  color: #2a0055;
+  line-height: 1.6;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  overflow: auto;         /* keeps scroll if text exceeds box */
+  font-size: clamp(12px, 1.05vw, 18px);
+}
+
+.info-box h2 {
+  text-align: center;
+  margin: 0 0 0.6em 0;
+  color: #3a0078;
+  font-size: clamp(14px, 1.2vw, 20px);
+}
+
+.info-box strong {
+  color: #8500a8;
+}
+
 
     .info-box h2 {
       text-align: center;
-      margin-top: 0;
+      margin: 0 0 0.6em 0;
       color: #3a0078;
+      font-size: clamp(14px, 1.2vw, 20px);
     }
 
     .info-box strong {
       color: #8500a8;
     }
 
-    .mypic {
-      position: absolute;
-      /* lets you move it freely */
-      top: 50px;
-      /* adjust vertically */
-      left: 50px;
-      /* adjust horizontally */
-      text-align: center;
-    }
 
-    .mypic img {
-      width: 180px;
-      border-radius: 12px;
-      border: 2px solid #3a0078;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-
-    .mypic figcaption {
-      font-size: 12px;
-      font-weight: 600;
-      color: #3a0078;
-      margin-top: 6px;
-    }
-
-    .luna {
+    /* Continue button beside the info box */
+.continue-btn {
   position: absolute;
-  top: 400px;        /* 20px below your caption area */
-  left: 50px;        /* same horizontal alignment as yours */
+  /* vertically centered on the info-box: top ≈ 36% + 23% = 59% */
+  top: 50%;
+  /* just to the right of the info-box right edge (~83%) */
+  left: 105%;
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  min-width: 220px;
+  padding: 12px 18px;
   text-align: center;
-}
-
-.luna img {
-  width: 180px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #001f4d, #000);
+  border: 2px solid #000;
   border-radius: 12px;
-  border: 2px solid #3a0078;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  cursor: pointer;
 }
 
-.luna figcaption {
-  font-size: 12px;
-  font-weight: 600;
-  color: #3a0078;
-  margin-top: 6px;
+.continue-btn:hover { filter: brightness(1.12); }
+.continue-btn:active { transform: translate(-50%, -50%) scale(0.98); }
+
+/* small screens safety */
+@media (max-width: 900px) {
+  .continue-btn { left: 84.5%; min-width: 180px; font-size: 13px; padding: 10px 14px; }
 }
 
   </style>
 </head>
-
 <body>
   <h1 class="sr-only">GCSG</h1>
 
-  <div class="layout">
+  <div class="stage">
     <div class="message">I'm not very good with logos so if anyone wants to make a new one lmk</div>
-    <!-- Replaced text logo with an image -->
+
     <figure class="mypic">
       <img src="Aenea%20Profile%20Pic.jpg" alt="Aenea Vannoni portrait">
       <figcaption>Me - Aenea Vannoni</figcaption>
-
-
     </figure>
 
     <figure class="luna">
-  <img src="LunaProfilepic.png" alt="Luna portrait">
-  <figcaption>The Queen of the Universe, Luna</figcaption>
-</figure>
+      <img src="LunaProfilepic.png" alt="Luna portrait">
+      <figcaption>The Queen of the Universe - Luna</figcaption>
+    </figure>
+
     <img src="SmallerLogo.png" alt="GCSG logo" class="logo" />
 
-  </div>
+    <div class="info-box">
+      <p>Hello Gamers, this is the <strong>SUPER SERIOUS official page</strong> of <strong>'THE GRAND CONQUEST OF THE SOLA
+          GALAXY'</strong>, a sci-fi series written by Aenea Vannoni. On this page you will find most of what I've done,
+        from the books themselves (there's only one right now) to worldbuilding, character sheets, maps etc.</p>
 
-  <div class="info-box">
-    <p>Hello Gamers, this is the <strong>SUPER SERIOUS official page</strong> of <strong>'THE GRAND CONQUEST OF THE SOLA
-        GALAXY'</strong>, a sci-fi series written by Aenea Vannoni. On this page you will find most of what I've done,
-      from the books themselves (there's only one right now) to worldbuilding, character sheets, maps etc.</p>
+      <p>Personally I don't subscribe to this copyright nonsense. Creative works <strong>IN MY OPINION</strong> should be
+        free for interpretation and fair use. Meaning, anyone who wants to plagiarize, warp, distort whatever my work is
+        free to do so. Listen, if Disney or Netflix try and make a show out of this without my input, they'd probably mess
+        it up so badly they'd lose 10x the money they spent on it. If you have any suggestions, comments or edits that
+        would be great to let me know on YouTube, Discord or email.</p>
 
-    <p>Personally I don't subscribe to this copyright nonsense. Creative works <strong>IN MY OPINION</strong> should be
-      free for interpretation and fair use. Meaning, anyone who wants to plagiarize, warp, distort whatever my work is
-      free to do so. Listen, if Disney or Netflix try and make a show out of this without my input, they'd probably mess
-      it up so badly they'd lose 10x the money they spent on it. If you have any suggestions, comments or edits that
-      would be great to let me know on YouTube, Discord or email.</p>
+      <h2>DISCLAIMER!!!</h2>
 
-    <h2>DISCLAIMER!!!</h2>
+      <p>I USE AI. Not all that much, but I still do. Primarily for art. WHY? Because I am perhaps the worst artist to
+        grace the land since a certain vegetarian. Despite this I still want to at least TRY and see visual
+        representations of my work so I use AI. IF ANYONE WANTS to make art for my story, as some people have (Thanks cuz)
+        that would be AMAZING and hella cool. I have no money to pay you though, so it would just be for fun.</p>
+    </div>
 
-    <p>I USE AI. Not all that much, but I still do. Primarily for art. WHY? Because I am perhaps the worst artist to
-      grace the land since a certain vegetarian. Despite this I still want to at least TRY and see visual
-      representations of my work so I use AI. IF ANYONE WANTS to make art for my story, as some people have (Thanks cuz)
-      that would be AMAZING and hella cool. I have no money to pay you though, so it would just be for fun.</p>
+    <a class="continue-btn" href="gcsg.html" aria-label="Continue to the Sola Galaxy">
+  Continue to the Sola Galaxy
+</a>
+
   </div>
 </body>
-
 </html>
